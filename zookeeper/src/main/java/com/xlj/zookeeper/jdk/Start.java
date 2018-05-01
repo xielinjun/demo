@@ -27,6 +27,7 @@ public class Start {
         @Override
         public void process(WatchedEvent watchedEvent) {
 
+            //
             System.out.println("state: "  + watchedEvent.getState());
             System.out.println("type: "  + watchedEvent.getType());
             System.out.println("path: "  + watchedEvent.getPath());
@@ -37,7 +38,7 @@ public class Start {
 
             try {
 
-                //不等于断开链接  &&  不等于超时
+                //异步链接状态
                 if(state == Event.KeeperState.SyncConnected) {
 
                     //路径不为 null
@@ -63,7 +64,7 @@ public class Start {
                                 System.out.println("创建节点: path=" + watchedEvent.getPath() + " data:" + data);
                                 break;
 
-                            case NodeDataChanged:
+                            case NodeDataChanged: //修改当前节点数据激发
                                 dataBytes = zookeeperUtils.setPath(watchedEvent.getPath()).getData();
                                 dataChars = new char[dataBytes.length];
                                 for (int i = 0; i < dataBytes.length; i++) {
@@ -74,7 +75,7 @@ public class Start {
                                 break;
 
 
-                            case NodeChildrenChanged: //仅删除的时候父节点会收到消息
+                            case NodeChildrenChanged: //删除子节点的时候会激发,修改子节点数据不激发
                                 System.out.println("子节点修改: path=" + watchedEvent.getPath() + " data:" + data);
                                 break;
 
@@ -163,6 +164,8 @@ public class Start {
         }
 
 
+        //添加一个根节点(根节点不能是 /root, 会有异常 应该是保留关键字)
+        //修改根节点的数据
         try{
             zookeeperUtils.setPath(basePath).setData("xlj".getBytes());
 
@@ -188,6 +191,8 @@ public class Start {
         }
 
 
+        //创建一个永久节点
+        //修改永久节点的数据
         try {
             System.out.println("5. add persistent: " + basePath + "/xlj_PERSISTENT");
             zookeeperUtils.setPath(basePath + "/xlj_PERSISTENT").setData("xlj_PERSISTENT".getBytes()).doCreatePERSISTENT(true);
@@ -213,6 +218,7 @@ public class Start {
         }
 
 
+        //创建一个永久有序节点
         try {
             System.out.println("6. add persistent sequential: " + basePath+ "/xlj_PERSISTENTSEQUENTIAL");
             zookeeperUtils.setPath(basePath + "/xlj_PERSISTENTSEQUENTIAL").setData("xlj_PERSISTENTSEQUENTIAL".getBytes()).doCreatePERSISTENTSEQUENTIAL(true);
@@ -227,6 +233,7 @@ public class Start {
         }
 
 
+        //创建一个临时节点
         try
         {
             System.out.println("7. add ephemeral: " + basePath + "/xlj_EPHEMERAL");
@@ -242,6 +249,7 @@ public class Start {
         }
 
 
+        //创建一个临时有序节点
         try
         {
             System.out.println("8. add ephemeral sequential: " + basePath + "/xlj_EPHEMERALSEQUENTIAL");

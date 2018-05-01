@@ -151,6 +151,7 @@ public class ZookeeperUtils {
 
     /**
      * 临时有序
+     * 不会揭发 watcher 的 process
      * @return 创建出来的节点
      */
     public String doCreateEPHEMERALSEQUENTIAL(boolean addListener) throws KeeperException, InterruptedException, IOException {
@@ -168,6 +169,7 @@ public class ZookeeperUtils {
 
     /**
      * 永久有序
+     * 不会揭发 watcher 的 process
      * @return 创建出来的节点
      */
     public String doCreatePERSISTENTSEQUENTIAL(boolean addListener) throws KeeperException, InterruptedException, IOException {
