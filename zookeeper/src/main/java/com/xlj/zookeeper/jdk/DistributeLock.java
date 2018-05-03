@@ -69,8 +69,8 @@ public class DistributeLock {
             Event.KeeperState state = event.getState();
             String path = event.getPath();
 
-            System.out.println("收到事件: " + state + " " + type + " " + path
-                    + " ->" + Thread.currentThread().getName());
+//            System.out.println("收到事件: " + state + " " + type + " " + path
+//                    + " ->" + Thread.currentThread().getName());
 
             //如果是链接中
             if(state == Event.KeeperState.SyncConnected)
@@ -79,7 +79,9 @@ public class DistributeLock {
                 {
                     case NodeDeleted:
                         try {
-                            this.getDistributeLock().doProcess();
+                            if (this.getDistributeLock().checkCurrentIsFirst()) {
+                                this.getDistributeLock().doProcess();
+                            }
                         } catch (KeeperException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -103,11 +105,27 @@ public class DistributeLock {
 //                        System.out.println("None");
                         break;
                 }
+
+                try {
+                    if(path != null) {
+                        //判断节点是否存在
+                        Stat stat = this.getDistributeLock().getZooKeeper().
+                                exists(DistributeLock.LOCKROOTPATH, true);
+                        this.getDistributeLock().getZooKeeper().
+                                getData(DistributeLock.LOCKROOTPATH, true, stat);
+                        this.getDistributeLock().getZooKeeper().
+                                getChildren(DistributeLock.LOCKROOTPATH, true, stat);
+                    }
+                } catch (KeeperException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
-            System.out.println("---------------------------------------------"
-                    + " ->" + Thread.currentThread().getName());
-            System.out.println();
+//            System.out.println("---------------------------------------------"
+//                    + " ->" + Thread.currentThread().getName());
+//            System.out.println();
         }
     };
 
@@ -148,6 +166,7 @@ public class DistributeLock {
      * @throws InterruptedException
      */
     private void createRoot() throws KeeperException, InterruptedException {
+
         //判断节点是否存在
         Stat stat = this.zooKeeper.exists(DistributeLock.LOCKROOTPATH, true);
 
@@ -157,15 +176,15 @@ public class DistributeLock {
                 String strResult = this.zooKeeper.create(DistributeLock.LOCKROOTPATH,
                         "lock root".getBytes(),
                         ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-
-
-                //                System.out.println("root create completed, path: " + strResult);
             }
             catch (Exception ex)
             {
                 ex.printStackTrace();
             }
         }
+
+        this.zooKeeper.getData(DistributeLock.LOCKROOTPATH, true, stat);
+        this.zooKeeper.getChildren(DistributeLock.LOCKROOTPATH, true, stat);
     }
 
     /**
@@ -174,13 +193,20 @@ public class DistributeLock {
      * @throws InterruptedException
      */
     public void createCurrent() throws KeeperException, InterruptedException {
+
+//        System.out.println("开始创建节点: " + this.currentID);
+
         this.currentID = this.zooKeeper.create(DistributeLock.LOCKROOTPATH + "/",
                 "ephemeral".getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL);
 
-        //        System.out.println("current node create completed, path: " + this.currentID);
+        //判断节点是否存在
+        Stat stat = this.zooKeeper.exists(DistributeLock.LOCKROOTPATH, true);
+        this.zooKeeper.getData(DistributeLock.LOCKROOTPATH, true, stat);
+        this.zooKeeper.getChildren(DistributeLock.LOCKROOTPATH, true, stat);
 
+//        System.out.println("创建节点完成: " + this.currentID);
     }
 
     /**
@@ -213,11 +239,12 @@ public class DistributeLock {
 
             System.out.println("当前节点不是队列第一个,添加上一个节点监听:" + DistributeLock.LOCKROOTPATH + "/" + pres.last()
                     + " ->" + Thread.currentThread().getName());
+
+            System.out.println("---------------------------------------------"
+                    + " ->" + Thread.currentThread().getName());
+            System.out.println();
         }
 
-        System.out.println("---------------------------------------------"
-                + " ->" + Thread.currentThread().getName());
-        System.out.println();
         return result;
     }
 
@@ -227,11 +254,24 @@ public class DistributeLock {
      */
     private void doProcess() throws KeeperException, InterruptedException {
 
+        System.out.println("开始执行任务: " + this.currentID
+                + " ->" + Thread.currentThread().getName());
         this.processer.process();
+
+        System.out.println("任务执行完成: " + this.currentID
+                + " ->" + Thread.currentThread().getName());
+        System.out.println("---------------------------------------------"
+                + " ->" + Thread.currentThread().getName());
+        System.out.println();
+
+
+//        System.out.println("删除节点开始: " + this.currentID
+//                + " ->" + Thread.currentThread().getName());
+
         this.zooKeeper.delete(this.currentID, -1);
 
-        System.out.println("删除节点完成: " + this.currentID
-                + " ->" + Thread.currentThread().getName());
+//        System.out.println("删除节点完成: " + this.currentID
+//                + " ->" + Thread.currentThread().getName());
     }
 
 }
