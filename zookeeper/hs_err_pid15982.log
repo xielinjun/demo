@@ -1,0 +1,374 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 43515904 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2640), pid=15982, tid=0x00007f0ec722c700
+#
+# JRE version:  (8.0_171-b11) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.171-b11 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f0ec000a800):  JavaThread "Unknown thread" [_thread_in_vm, id=15987, stack(0x00007f0ec712c000,0x00007f0ec722d000)]
+
+Stack: [0x00007f0ec712c000,0x00007f0ec722d000],  sp=0x00007f0ec722b3c0,  free space=1020k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xacfffa]  VMError::report_and_die()+0x2ba
+V  [libjvm.so+0x5005cb]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*)+0x8b
+V  [libjvm.so+0x92dd93]  os::Linux::commit_memory_impl(char*, unsigned long, bool)+0x123
+V  [libjvm.so+0x92dfb9]  os::pd_commit_memory(char*, unsigned long, unsigned long, bool)+0x29
+V  [libjvm.so+0x92527a]  os::commit_memory(char*, unsigned long, unsigned long, bool)+0x2a
+V  [libjvm.so+0x99b223]  PSVirtualSpace::expand_by(unsigned long)+0x53
+V  [libjvm.so+0x98b337]  PSOldGen::initialize(ReservedSpace, unsigned long, char const*, int)+0xb7
+V  [libjvm.so+0x2db31a]  AdjoiningGenerations::AdjoiningGenerations(ReservedSpace, GenerationSizer*, unsigned long)+0x39a
+V  [libjvm.so+0x94f366]  ParallelScavengeHeap::initialize()+0x1d6
+V  [libjvm.so+0xa98033]  Universe::initialize_heap()+0xf3
+V  [libjvm.so+0xa9859e]  universe_init()+0x3e
+V  [libjvm.so+0x642105]  init_globals()+0x65
+V  [libjvm.so+0xa7cd4e]  Threads::create_vm(JavaVMInitArgs*, bool*)+0x23e
+V  [libjvm.so+0x6d6e44]  JNI_CreateJavaVM+0x74
+C  [libjli.so+0x797e]  JavaMain+0x9e
+C  [libpthread.so.0+0x76ba]  start_thread+0xca
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x00007f0ec000a800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=15987, stack(0x00007f0ec712c000,0x00007f0ec722d000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 08:01 1064739                            /home/xielinjun/java/jdk1.8.0_171/jre/bin/java
+00600000-00601000 rw-p 00000000 08:01 1064739                            /home/xielinjun/java/jdk1.8.0_171/jre/bin/java
+01491000-014b2000 rw-p 00000000 00:00 0                                  [heap]
+c5380000-eb900000 ---p 00000000 00:00 0 
+eb900000-ecd80000 rw-p 00000000 00:00 0 
+ecd80000-100000000 ---p 00000000 00:00 0 
+7f0eb09b8000-7f0eb0c4a000 rw-p 00000000 00:00 0 
+7f0eb0c4a000-7f0eb1000000 ---p 00000000 00:00 0 
+7f0eb1000000-7f0eb1270000 rwxp 00000000 00:00 0 
+7f0eb1270000-7f0ec0000000 ---p 00000000 00:00 0 
+7f0ec0000000-7f0ec0035000 rw-p 00000000 00:00 0 
+7f0ec0035000-7f0ec4000000 ---p 00000000 00:00 0 
+7f0ec4091000-7f0ec41d8000 ---p 00000000 00:00 0 
+7f0ec41d8000-7f0ec41e3000 rw-p 00000000 00:00 0 
+7f0ec41e3000-7f0ec427c000 ---p 00000000 00:00 0 
+7f0ec427c000-7f0ec427d000 rw-p 00000000 00:00 0 
+7f0ec427d000-7f0ec4298000 r-xp 00000000 08:01 669764                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/libzip.so
+7f0ec4298000-7f0ec4498000 ---p 0001b000 08:01 669764                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/libzip.so
+7f0ec4498000-7f0ec4499000 rw-p 0001b000 08:01 669764                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/libzip.so
+7f0ec4499000-7f0ec44a4000 r-xp 00000000 08:01 923496                     /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f0ec44a4000-7f0ec46a3000 ---p 0000b000 08:01 923496                     /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f0ec46a3000-7f0ec46a4000 r--p 0000a000 08:01 923496                     /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f0ec46a4000-7f0ec46a5000 rw-p 0000b000 08:01 923496                     /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7f0ec46a5000-7f0ec46ab000 rw-p 00000000 00:00 0 
+7f0ec46ab000-7f0ec46b6000 r-xp 00000000 08:01 923506                     /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f0ec46b6000-7f0ec48b5000 ---p 0000b000 08:01 923506                     /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f0ec48b5000-7f0ec48b6000 r--p 0000a000 08:01 923506                     /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f0ec48b6000-7f0ec48b7000 rw-p 0000b000 08:01 923506                     /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7f0ec48b7000-7f0ec48cd000 r-xp 00000000 08:01 923490                     /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f0ec48cd000-7f0ec4acc000 ---p 00016000 08:01 923490                     /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f0ec4acc000-7f0ec4acd000 r--p 00015000 08:01 923490                     /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f0ec4acd000-7f0ec4ace000 rw-p 00016000 08:01 923490                     /lib/x86_64-linux-gnu/libnsl-2.23.so
+7f0ec4ace000-7f0ec4ad0000 rw-p 00000000 00:00 0 
+7f0ec4ad0000-7f0ec4ad8000 r-xp 00000000 08:01 923492                     /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f0ec4ad8000-7f0ec4cd7000 ---p 00008000 08:01 923492                     /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f0ec4cd7000-7f0ec4cd8000 r--p 00007000 08:01 923492                     /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f0ec4cd8000-7f0ec4cd9000 rw-p 00008000 08:01 923492                     /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7f0ec4cd9000-7f0ec4d04000 r-xp 00000000 08:01 669758                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/libjava.so
+7f0ec4d04000-7f0ec4f03000 ---p 0002b000 08:01 669758                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/libjava.so
+7f0ec4f03000-7f0ec4f05000 rw-p 0002a000 08:01 669758                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/libjava.so
+7f0ec4f05000-7f0ec4f12000 r-xp 00000000 08:01 669763                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/libverify.so
+7f0ec4f12000-7f0ec5112000 ---p 0000d000 08:01 669763                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/libverify.so
+7f0ec5112000-7f0ec5114000 rw-p 0000d000 08:01 669763                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/libverify.so
+7f0ec5114000-7f0ec511b000 r-xp 00000000 08:01 923551                     /lib/x86_64-linux-gnu/librt-2.23.so
+7f0ec511b000-7f0ec531a000 ---p 00007000 08:01 923551                     /lib/x86_64-linux-gnu/librt-2.23.so
+7f0ec531a000-7f0ec531b000 r--p 00006000 08:01 923551                     /lib/x86_64-linux-gnu/librt-2.23.so
+7f0ec531b000-7f0ec531c000 rw-p 00007000 08:01 923551                     /lib/x86_64-linux-gnu/librt-2.23.so
+7f0ec531c000-7f0ec5424000 r-xp 00000000 08:01 923467                     /lib/x86_64-linux-gnu/libm-2.23.so
+7f0ec5424000-7f0ec5623000 ---p 00108000 08:01 923467                     /lib/x86_64-linux-gnu/libm-2.23.so
+7f0ec5623000-7f0ec5624000 r--p 00107000 08:01 923467                     /lib/x86_64-linux-gnu/libm-2.23.so
+7f0ec5624000-7f0ec5625000 rw-p 00108000 08:01 923467                     /lib/x86_64-linux-gnu/libm-2.23.so
+7f0ec5625000-7f0ec62fe000 r-xp 00000000 08:01 669740                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/server/libjvm.so
+7f0ec62fe000-7f0ec64fd000 ---p 00cd9000 08:01 669740                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/server/libjvm.so
+7f0ec64fd000-7f0ec65d7000 rw-p 00cd8000 08:01 669740                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/server/libjvm.so
+7f0ec65d7000-7f0ec6622000 rw-p 00000000 00:00 0 
+7f0ec6622000-7f0ec67e2000 r-xp 00000000 08:01 923397                     /lib/x86_64-linux-gnu/libc-2.23.so
+7f0ec67e2000-7f0ec69e2000 ---p 001c0000 08:01 923397                     /lib/x86_64-linux-gnu/libc-2.23.so
+7f0ec69e2000-7f0ec69e6000 r--p 001c0000 08:01 923397                     /lib/x86_64-linux-gnu/libc-2.23.so
+7f0ec69e6000-7f0ec69e8000 rw-p 001c4000 08:01 923397                     /lib/x86_64-linux-gnu/libc-2.23.so
+7f0ec69e8000-7f0ec69ec000 rw-p 00000000 00:00 0 
+7f0ec69ec000-7f0ec69ef000 r-xp 00000000 08:01 923421                     /lib/x86_64-linux-gnu/libdl-2.23.so
+7f0ec69ef000-7f0ec6bee000 ---p 00003000 08:01 923421                     /lib/x86_64-linux-gnu/libdl-2.23.so
+7f0ec6bee000-7f0ec6bef000 r--p 00002000 08:01 923421                     /lib/x86_64-linux-gnu/libdl-2.23.so
+7f0ec6bef000-7f0ec6bf0000 rw-p 00003000 08:01 923421                     /lib/x86_64-linux-gnu/libdl-2.23.so
+7f0ec6bf0000-7f0ec6c06000 r-xp 00000000 08:01 669736                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/jli/libjli.so
+7f0ec6c06000-7f0ec6e05000 ---p 00016000 08:01 669736                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/jli/libjli.so
+7f0ec6e05000-7f0ec6e06000 rw-p 00015000 08:01 669736                     /home/xielinjun/java/jdk1.8.0_171/jre/lib/amd64/jli/libjli.so
+7f0ec6e06000-7f0ec6e1e000 r-xp 00000000 08:01 923543                     /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f0ec6e1e000-7f0ec701d000 ---p 00018000 08:01 923543                     /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f0ec701d000-7f0ec701e000 r--p 00017000 08:01 923543                     /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f0ec701e000-7f0ec701f000 rw-p 00018000 08:01 923543                     /lib/x86_64-linux-gnu/libpthread-2.23.so
+7f0ec701f000-7f0ec7023000 rw-p 00000000 00:00 0 
+7f0ec7023000-7f0ec7049000 r-xp 00000000 08:01 923369                     /lib/x86_64-linux-gnu/ld-2.23.so
+7f0ec712c000-7f0ec712f000 ---p 00000000 00:00 0 
+7f0ec712f000-7f0ec7232000 rw-p 00000000 00:00 0 
+7f0ec723e000-7f0ec7246000 rw-s 00000000 08:01 440744                     /tmp/hsperfdata_xielinjun/15982
+7f0ec7246000-7f0ec7247000 rw-p 00000000 00:00 0 
+7f0ec7247000-7f0ec7248000 r--p 00000000 00:00 0 
+7f0ec7248000-7f0ec7249000 r--p 00025000 08:01 923369                     /lib/x86_64-linux-gnu/ld-2.23.so
+7f0ec7249000-7f0ec724a000 rw-p 00026000 08:01 923369                     /lib/x86_64-linux-gnu/ld-2.23.so
+7f0ec724a000-7f0ec724b000 rw-p 00000000 00:00 0 
+7fff34117000-7fff34139000 rw-p 00000000 00:00 0                          [stack]
+7fff3413d000-7fff34140000 r--p 00000000 00:00 0                          [vvar]
+7fff34140000-7fff34142000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+java_command: /home/xielinjun/IdeaProjects/demoroot/zookeeper/target/surefire/surefirebooter991928576598565782.jar /home/xielinjun/IdeaProjects/demoroot/zookeeper/target/surefire 2018-05-03T19-20-03_308-jvmRun1 surefire7799249847625557970tmp surefire_06982664205137645463tmp
+java_class_path (initial): /home/xielinjun/IdeaProjects/demoroot/zookeeper/target/surefire/surefirebooter991928576598565782.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/home/xielinjun/java/jdk1.8.0_171
+JRE_HOME=/home/xielinjun/java/jdk1.8.0_171/jre
+CLASSPATH=.:/home/xielinjun/java/jdk1.8.0_171/lib:/home/xielinjun/java/jdk1.8.0_171/jre/lib
+PATH=.:/home/xielinjun/mavenserver/nexus-3.10.0-04/bin:.:/home/xielinjun/maven/apache-maven-3.5.3/bin:.:/home/xielinjun/soft/idea-IU-181.4668.68/bin:.:/home/xielinjun/tomcat/apache-tomcat-9.0.7/bin:.:/home/xielinjun/java/jdk1.8.0_171/bin:.:/home/xielinjun/soft/zookeeper-3.4.10/bin:/home/xielinjun/bin:/home/xielinjun/.local/bin:.:/home/xielinjun/mavenserver/nexus-3.10.0-04/bin:.:/home/xielinjun/maven/apache-maven-3.5.3/bin:.:/home/xielinjun/soft/idea-IU-181.4668.68/bin:.:/home/xielinjun/tomcat/apache-tomcat-9.0.7/bin:.:/home/xielinjun/java/jdk1.8.0_171/bin:.:/home/xielinjun/soft/zookeeper-3.4.10/bin:.:/home/xielinjun/mavenserver/nexus-3.10.0-04/bin:.:/home/xielinjun/maven/apache-maven-3.5.3/bin:.:/home/xielinjun/soft/idea-IU-181.4668.68/bin:.:/home/xielinjun/tomcat/apache-tomcat-9.0.7/bin:.:/home/xielinjun/java/jdk1.8.0_171/bin:.:/home/xielinjun/soft/zookeeper-3.4.10/bin:/home/xielinjun/bin:/home/xielinjun/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xad0890], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xad0890], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x928640], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x928640], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x928640], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x928640], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x929ea0], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGINT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGTERM: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGQUIT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=16.04
+DISTRIB_CODENAME=xenial
+DISTRIB_DESCRIPTION="Ubuntu 16.04.4 LTS"
+
+uname:Linux 4.13.0-39-generic #44~16.04.1-Ubuntu SMP Thu Apr 5 16:43:10 UTC 2018 x86_64
+libc:glibc 2.23 NPTL 2.23 
+rlimit: STACK 8192k, CORE 0k, NPROC 15483, NOFILE 1048576, AS infinity
+load average:3.58 2.33 1.72
+
+/proc/meminfo:
+MemTotal:        4016436 kB
+MemFree:           89588 kB
+MemAvailable:          0 kB
+Buffers:            2552 kB
+Cached:            59852 kB
+SwapCached:        11700 kB
+Active:          2727504 kB
+Inactive:         556380 kB
+Active(anon):    2716908 kB
+Inactive(anon):   543272 kB
+Active(file):      10596 kB
+Inactive(file):    13108 kB
+Unevictable:          48 kB
+Mlocked:              48 kB
+SwapTotal:       1046524 kB
+SwapFree:              0 kB
+Dirty:                72 kB
+Writeback:            20 kB
+AnonPages:       3209952 kB
+Mapped:            52800 kB
+Shmem:             38500 kB
+Slab:              99264 kB
+SReclaimable:      37124 kB
+SUnreclaim:        62140 kB
+KernelStack:       15696 kB
+PageTables:        43556 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     3054740 kB
+Committed_AS:    9405080 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      130880 kB
+DirectMap2M:     4063232 kB
+DirectMap1G:     2097152 kB
+
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 1 threads per core) family 6 model 78 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, rtm, 3dnowpref, lzcnt, tsc, tscinvbit, bmi1, bmi2, adx
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 78
+model name	: Intel(R) Core(TM) i5-6300U CPU @ 2.40GHz
+stepping	: 3
+microcode	: 0xc2
+cpu MHz		: 2496.000
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 2
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault invpcid_single pti retpoline rsb_ctxsw spec_ctrl fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xsaves arat
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 4992.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 43 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 78
+model name	: Intel(R) Core(TM) i5-6300U CPU @ 2.40GHz
+stepping	: 3
+microcode	: 0xc2
+cpu MHz		: 2496.000
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 2
+core id		: 1
+cpu cores	: 2
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault invpcid_single pti retpoline rsb_ctxsw spec_ctrl fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xsaves arat
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 4992.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 43 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 78
+model name	: Intel(R) Core(TM) i5-6300U CPU @ 2.40GHz
+stepping	: 3
+microcode	: 0xc2
+cpu MHz		: 2496.000
+cache size	: 3072 KB
+physical id	: 1
+siblings	: 2
+core id		: 0
+cpu cores	: 2
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault invpcid_single pti retpoline rsb_ctxsw spec_ctrl fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xsaves arat
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 4992.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 43 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 78
+model name	: Intel(R) Core(TM) i5-6300U CPU @ 2.40GHz
+stepping	: 3
+microcode	: 0xc2
+cpu MHz		: 2496.000
+cache size	: 3072 KB
+physical id	: 1
+siblings	: 2
+core id		: 1
+cpu cores	: 2
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault invpcid_single pti retpoline rsb_ctxsw spec_ctrl fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm mpx rdseed adx smap clflushopt xsaveopt xsavec xsaves arat
+bugs		: cpu_meltdown spectre_v1 spectre_v2
+bogomips	: 4992.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 43 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 4016436k(89216k free), swap 1046524k(0k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.171-b11) for linux-amd64 JRE (1.8.0_171-b11), built on Mar 28 2018 17:07:08 by "java_re" with gcc 4.3.0 20080428 (Red Hat 4.3.0-8)
+
+time: Thu May  3 19:20:13 2018
+elapsed time: 0 seconds (0d 0h 0m 0s)
+
