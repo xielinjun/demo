@@ -1,6 +1,9 @@
 package com.xlj.interfaces.model;
 
-public class Order {
+import java.io.Serializable;
+import java.util.List;
+
+public class Order implements Serializable {
 
     User user = new User();
     String address = "";
@@ -10,6 +13,27 @@ public class Order {
 
     public User getUser() {
         return user;
+    }
+
+
+    List<OrderDetial> detials = null;
+
+    public List<OrderDetial> getDetials() {
+        return detials;
+    }
+
+    public void setDetials(List<OrderDetial> detials) {
+        this.detials = detials;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "user=" + user +
+                ", address='" + address + '\'' +
+                ", amount=" + amount +
+                ", count=" + count +
+                '}';
     }
 
     public void setUser(User user) {

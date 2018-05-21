@@ -1,0 +1,2 @@
+impl=com.xlj.service.DubboTestImpl
+implv2=com.xlj.service.DubboTestImplV2

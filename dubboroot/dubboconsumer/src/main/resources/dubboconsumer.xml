@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <dubbo:application name="dubboTestClient" owner="xlj"></dubbo:application>
+
+    <!--从注册地获取链接地址-->
+    <dubbo:registry id="zookeeperRegistry" protocol="zookeeper" address="127.0.0.1:2181"></dubbo:registry>
+
+    <!--引用服务-->
+    <dubbo:reference id="dubboTest" interface="com.xlj.interfaces.DubboTest"
+                     registry="zookeeperRegistry"></dubbo:reference>
+    <dubbo:reference id="dubboTestV2" interface="com.xlj.interfaces.DubboTest"
+                     registry="zookeeperRegistry" version="2.0" async="true"
+                    ></dubbo:reference>
+
+</beans>

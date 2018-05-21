@@ -15,6 +15,9 @@
         <module>dubboapi</module>
         <module>dubboprovid</module>
         <module>dubboconsumer</module>
+        <module>userpai</module>
+        <module>basedatamodel</module>
+        <module>userapiprovid</module>
     </modules>
 
 

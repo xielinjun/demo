@@ -28,18 +28,56 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+
         <!--dubbo-->
-        <!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>servlet-api</artifactId>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-core</artifactId>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba</groupId>-->
+            <!--<artifactId>dubbo-rpc-api</artifactId>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo-remoting-http</artifactId>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.apache.httpcomponents</groupId>-->
+            <!--<artifactId>httpclient</artifactId>-->
+        <!--</dependency>-->
+
         <!--__________________________dubbo end-->
+
 
         <dependency>
             <groupId>com.xlj</groupId>
             <artifactId>dubboapi</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- zookeeper zkClient dubbo https://mvnrepository.com/artifact/com.github.sgroschupf/zkclient -->
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
         </dependency>
     </dependencies>
 

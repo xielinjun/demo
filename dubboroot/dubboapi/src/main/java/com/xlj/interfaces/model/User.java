@@ -1,6 +1,8 @@
 package com.xlj.interfaces.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User  implements Serializable {
     String name = "";
     String id = "";
     int age = 0;

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="dubboTestService" owner="xlj"></dubbo:application>
+
+    <!--单机模式-->
+    <!--<dubbo:registry address="N/A"></dubbo:registry>-->
+    <dubbo:registry id="zookeeperRegitstry" protocol="zookeeper" address="127.0.0.1:2181"></dubbo:registry>
+
+    <!--协议-->
+    <dubbo:protocol name="dubbo" port="8971"></dubbo:protocol>
+    <dubbo:protocol name="hessian" port="8090" server="jetty"></dubbo:protocol>
+
+    <!--服务实现类-->
+    <bean id="dubboTestImpl" class="com.xlj.service.DubboTestImpl"></bean>
+    <bean id="dubboTestImplV2" class="com.xlj.service.DubboTestImplV2"></bean>
+
+    <!--服务发布-->
+    <dubbo:service interface="com.xlj.interfaces.DubboTest" ref="dubboTestImpl"
+        protocol="dubbo" registry="zookeeperRegitstry"></dubbo:service>
+    <dubbo:service interface="com.xlj.interfaces.DubboTest" ref="dubboTestImplV2"
+                   protocol="dubbo" registry="zookeeperRegitstry"
+                    version="2.0"></dubbo:service>
+
+    <bean class="com.xlj.interfaces.model.Order" scope="prototype"></bean>
+
+    <bean class="com.xlj.interfaces.model.User" scope="prototype"></bean>
+
+    <bean class="com.xlj.interfaces.model.OrderDetial" scope="prototype"></bean>
+
+</beans>
