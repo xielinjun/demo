@@ -52,62 +52,62 @@ public class JavaClassExecuter {
     public static String execut(byte[] classByte)
     {
         HotSwapClassLoader loader = new HotSwapClassLoader();
-        HotSwapClassLoader loader1 = new HotSwapClassLoader();
-        HotSwapClassLoaderChild loaderChild = new HotSwapClassLoaderChild();
-
-        Class<?> cc = null;
-        try {
-            cc = JavaClassExecuter.class.getClassLoader().loadClass("com.xlj.telnetexcuted.ExecuterTest");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        Class<?> cc1 = null;
-        try {
-            cc1 = loader.loadClass("com.xlj.telnetexcuted.ExecuterTest");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        Class<?> cc2 = null;
-        try {
-            cc2 = loaderChild.loadClass("com.xlj.telnetexcuted.ExecuterTest");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(cc.getClassLoader() +
-                "--" + cc1.getClassLoader() +
-                "--" + cc2.getClassLoader());
-
-        try {
-            System.out.println(cc.newInstance().equals(cc1.newInstance()));
-            System.out.println(cc.newInstance().equals(cc2.newInstance()));
-            System.out.println(cc1.newInstance().equals(cc2.newInstance()));
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
+//        HotSwapClassLoader loader1 = new HotSwapClassLoader();
+//        HotSwapClassLoaderChild loaderChild = new HotSwapClassLoaderChild();
+//
+//        Class<?> cc = null;
+//        try {
+//            cc = JavaClassExecuter.class.getClassLoader().loadClass("com.xlj.telnetexcuted.ExecuterTest");
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Class<?> cc1 = null;
+//        try {
+//            cc1 = loader.loadClass("com.xlj.telnetexcuted.ExecuterTest");
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Class<?> cc2 = null;
+//        try {
+//            cc2 = loaderChild.loadClass("com.xlj.telnetexcuted.ExecuterTest");
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println(cc.getClassLoader() +
+//                "--" + cc1.getClassLoader() +
+//                "--" + cc2.getClassLoader());
+//
+//        try {
+//            System.out.println(cc.newInstance().equals(cc1.newInstance()));
+//            System.out.println(cc.newInstance().equals(cc2.newInstance()));
+//            System.out.println(cc1.newInstance().equals(cc2.newInstance()));
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//
         Class clazz1 = loader.loadByte(classByte);
-        Class clazz11 = loader1.loadByte(classByte);
+//        Class clazz11 = loader1.loadByte(classByte);
+//
+//        System.out.println(clazz1.getClassLoader() +
+//                "-----------------------" + clazz11.getClassLoader());
+//
+//        Class clazz2 = loaderChild.loadByte(classByte);
+//
+//        System.out.println(clazz1.getClassLoader() +
+//                "--" + clazz2.getClassLoader());
 
-        System.out.println(clazz1.getClassLoader() +
-                "-----------------------" + clazz11.getClassLoader());
-
-        Class clazz2 = loaderChild.loadByte(classByte);
-
-        System.out.println(clazz1.getClassLoader() +
-                "--" + clazz2.getClassLoader());
-
-        try {
-            System.out.println(clazz1.newInstance() == clazz2.newInstance());
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            System.out.println(clazz1.newInstance() == clazz2.newInstance());
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
 
         System.out.println(Thread.currentThread().getContextClassLoader());
 

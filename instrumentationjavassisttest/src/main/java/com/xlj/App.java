@@ -1,0 +1,14 @@
+package com.xlj;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+        System.out.println( "Hello World!" );
+//        com.xlj.aop.instrumentationjavassits.PerfMonAgent
+    }
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.xlj.com/schema/user"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tool="http://www.springframework.org/schema/tool"
+            targetNamespace="http://www.xlj.com/schema/user"
+            elementFormDefault="qualified">
+
+<!--<xsd:schema xmlns="http://www.springframework.org/schema/aop"-->
+                <!--xmlns:xsd="http://www.w3.org/2001/XMLSchema"-->
+                <!--xmlns:tool="http://www.springframework.org/schema/tool"-->
+                <!--targetNamespace="http://www.springframework.org/schema/aop"-->
+                <!--elementFormDefault="qualified"-->
+                <!--attributeFormDefault="unqualified">-->
+
+
+    <xsd:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+    <xsd:import namespace="http://www.springframework.org/schema/tool" schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
+
+
+    <xsd:element name="user">
+        <xsd:complexType>
+            <xsd:attribute name="id" type="xsd:string"></xsd:attribute>
+            <xsd:attribute name="username" type="xsd:string"></xsd:attribute>
+            <xsd:attribute name="password" type="xsd:string"></xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!--<xsd:element name="order">-->
+        <!--<xsd:complexType>-->
+            <!--<xsd:attribute name="user" type="userType"></xsd:attribute>-->
+
+            <!--<xsd:attribute name="id" type="xsd:string"></xsd:attribute>-->
+            <!--<xsd:attribute name="createdate" type="xsd:dateTime"></xsd:attribute>-->
+        <!--</xsd:complexType>-->
+    <!--</xsd:element>-->
+
+    <!--<xsd:complexType name="userType">-->
+        <!--<xsd:annotation>-->
+            <!--<xsd:appinfo>-->
+                <!--<tool:annotation>-->
+                    <!--<tool:exports type="com.xlj.model.User"/>-->
+                <!--</tool:annotation>-->
+            <!--</xsd:appinfo>-->
+        <!--</xsd:annotation>-->
+
+        <!--<xsd:attribute name="id" type="xsd:string"></xsd:attribute>-->
+        <!--<xsd:attribute name="username" type="xsd:string"></xsd:attribute>-->
+        <!--<xsd:attribute name="password" type="xsd:string"></xsd:attribute>-->
+    <!--</xsd:complexType>-->
+
+</xsd:schema>

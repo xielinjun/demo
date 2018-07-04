@@ -16,6 +16,7 @@
     <!--引用服务-->
     <dubbo:reference id="dubboTest" interface="com.xlj.interfaces.DubboTest"
                      registry="zookeeperRegistry"></dubbo:reference>
+
     <dubbo:reference id="dubboTestV2" interface="com.xlj.interfaces.DubboTest"
                      registry="zookeeperRegistry" version="2.0" async="true"
                     ></dubbo:reference>

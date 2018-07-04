@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xmlns:user="http://www.xlj.com/schema/user"
+       xmlns:userxsd="http://www.xlj.com/schema/userxsdtest"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+
+        http://www.xlj.com/schema/user
+        http://www.xlj.com/schema/user.xsd
+
+        http://www.xlj.com/schema/userxsdtest
+        http://www.xlj.com/schema/userxsdtest.xsd
+
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <beans profile="dev">
+
+        <!--注册类型转换器 1 propertieseditor-->
+        <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer" id="customEditorConfigurer">-->
+        <!--<property name="customEditors">-->
+        <!--<map>-->
+        <!--<entry key="java.util.Date" value="com.xlj.model.DatePropertyEditor">-->
+        <!--</entry>-->
+        <!--</map>-->
+        <!--</property>-->
+        <!--</bean>-->
+
+        <!--注册类型转换器 2 propertieseditor-->
+        <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer" id="customEditorConfigurer">
+            <property name="propertyEditorRegistrars">
+                <bean class="com.xlj.propertieseditor.DatePropertyEditorRegistrar"></bean>
+            </property>
+        </bean>
+
+        <!--读取 properties 文件 spring 自带的 beanfactorypostprocessor-->
+        <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
+            <property name="locations" value="classpath:/META-INF/configs/bean.properties" ></property>
+        </bean>
+
+        <!--自定义 beanfactorypostprocessor-->
+        <bean class="com.xlj.processors.ObscenityRemovingBeanFactoryPostProcessor" id="obscenityRemovingBeanFactoryPostProcessor">
+            <property name="obscenities">
+                <set>
+                    <value>bollocks</value>
+                    <value>winky</value>
+                    <value>Abcd1234</value>
+                </set>
+            </property>
+        </bean>
+
+        <!--自定义 beanpostprocessor-->
+        <bean class="com.xlj.processors.MyInstantiationAwareBeanPostProcessor" id="myInstantiationAwareBeanPostProcessor"></bean>
+
+        <!--i18n-->
+        <bean class="org.springframework.context.support.ResourceBundleMessageSource" id="messageSource">
+            <property name="basenames">
+                <list>
+                    <value>META-INF.messages.messages</value>
+                </list>
+            </property>
+        </bean>
+
+        <!--event listener-->
+        <bean class="com.xlj.events.TestListener" id="testListener"></bean>
+
+        <!--converter-->
+        <bean class="org.springframework.context.support.ConversionServiceFactoryBean" id="conversionService">
+            <property name="converters">
+                <list>
+                    <bean class="com.xlj.converters.String2DateConverter"></bean>
+                </list>
+            </property>
+        </bean>
+
+        <alias name="user_Replaced" alias="user6"></alias>
+        <alias name="user_Replaced" alias="user10"></alias>
+
+        <bean class="com.xlj.model.BeanFactoryTest" id="beanFactoryTest" scope="prototype">
+            <constructor-arg index="0" value="cmming"></constructor-arg>
+        </bean>
+
+        <bean class="com.xlj.circle.CircleA" id="circleA" scope="singleton">
+            <property name="circleB" ref="circleB"></property>
+        </bean>
+        <bean class="com.xlj.circle.CircleB" id="circleB" scope="singleton">
+            <property name="circleC" ref="circleC"></property>
+        </bean>
+        <bean class="com.xlj.circle.CircleC" id="circleC" scope="singleton">
+            <property name="circleA" ref="circleA"></property>
+        </bean>
+
+        <bean class="com.xlj.model.GetUserTest" id="getUserTest_Lookup">
+            <constructor-arg value="10"></constructor-arg>
+            <lookup-method name="getBean" bean="userChild"></lookup-method>
+            <!--<lookup-method name="getUser" bean="userChild2"></lookup-method>-->
+        </bean>
+
+        <!--使用自定义postprocessor-->
+        <bean class="com.xlj.model.User" id="user_Replaced_PostPorcessor">
+            <description>test descreption</description>
+            <meta key="testStr" value="testStrValue"></meta>
+
+            <constructor-arg index="0" value="constractortestun"></constructor-arg>
+            <constructor-arg index="1" value="constractortestpwd"></constructor-arg>
+
+            <property name="password" value="bollocks"></property>
+            <property name="username" value="Abcd1234"></property>
+            <property name="birthday" value="1988-05-07"></property>
+
+            <replaced-method name="changeMe" replacer="order"></replaced-method>
+        </bean>
+
+        <!--使用properties文件-->
+        <bean class="com.xlj.model.User" id="user_Replaced_Properties">
+            <description>test descreption</description>
+            <meta key="testStr" value="testStrValue"></meta>
+
+            <constructor-arg index="0" value="constractortestun"></constructor-arg>
+            <constructor-arg index="1" value="constractortestpwd"></constructor-arg>
+
+            <property name="password" value="${name}"></property>
+            <property name="username" value="${password}"></property>
+            <property name="birthday" value="1988-05-07"></property>
+
+            <replaced-method name="changeMe" replacer="order"></replaced-method>
+        </bean>
+
+        <bean class="com.xlj.model.User" id="user_Replaced" name="user2 user3,user4;user5">
+            <description>test descreption</description>
+            <meta key="testStr" value="testStrValue"></meta>
+
+            <constructor-arg index="0" value="constractortestun"></constructor-arg>
+            <constructor-arg index="1" value="constractortestpwd"></constructor-arg>
+
+            <property name="password" value="123456"></property>
+            <property name="username" value="cmming test"></property>
+            <property name="birthday" value="1988-05-07"></property>
+
+            <replaced-method name="changeMe" replacer="order"></replaced-method>
+        </bean>
+
+        <bean class="com.xlj.model.UserChild" id="userChild"></bean>
+        <bean class="com.xlj.model.UserChild2" id="userChild2"></bean>
+
+        <user:user id="testUser" password="Abcd1234" username="cmming"></user:user>
+        <userxsd:userxsdtest id="testUserXSDTest" username="cmming" password="Abcd1234"></userxsd:userxsdtest>
+
+        <bean class="com.xlj.model.Order" id="order"></bean>
+
+        <bean class="com.xlj.model.User" id="userMy1">
+            <description>test descreption</description>
+            <meta key="testStr" value="testStrValue"></meta>
+
+            <constructor-arg index="0" value="constractortestun"></constructor-arg>
+            <constructor-arg index="1" value="constractortestpwd"></constructor-arg>
+
+            <property name="password" value="123456"></property>
+            <property name="username" value="cmming test"></property>
+        </bean>
+    </beans>
+
+</beans>
