@@ -1,6 +1,7 @@
 package com.xlj.processors;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 
 public class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
@@ -15,4 +16,9 @@ public class MyInstantiationAwareBeanPostProcessor implements InstantiationAware
         System.out.println("MyInstantiationAwareBeanProcessor after: " + bean + " " + beanName);
         return null;
     }
+
+//    @Override
+//    public void afterPropertiesSet() throws Exception {
+//
+//    }
 }

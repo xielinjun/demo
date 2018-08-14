@@ -8,8 +8,14 @@ import com.xlj.aop.jdkproxy.UserService;
 import com.xlj.aop.jdkproxy.UserServiceImpl;
 import com.xlj.converters.String2DateConverter;
 import com.xlj.events.TestEvent;
+import com.xlj.jdbc.IUserService;
 import com.xlj.model.GetUserTest;
 import com.xlj.model.User;
+import com.xlj.mybatis.IUserMapper;
+import com.xlj.mybatis.MyBatisUtils;
+import com.xlj.mybatis.Test;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -18,11 +24,16 @@ import org.springframework.cglib.core.Local;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
+import java.sql.Driver;
+import java.sql.DriverManager;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.ServiceLoader;
 
 /**
  * Hello world!
@@ -30,14 +41,38 @@ import java.util.Locale;
  */
 public class App 
 {
+
+
+    /***
+     * mybatis test
+     */
+    public static void mybatisTest() {
+
+        Method[] methods = IUserMapper.class.getMethods();
+        for (Method method : methods) {
+            System.out.println(method.getName());
+            Parameter[] parameters = method.getParameters();
+            for (Parameter parameter : parameters) {
+                System.out.println(parameter.getName());
+            }
+        }
+
+        SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        IUserMapper userMapper = sqlSession.getMapper(IUserMapper.class);
+        userMapper.insertUser(new com.xlj.mybatis.User(0, "xlj", 31, "man"));
+        System.out.println(userMapper.getUser(1));
+        System.out.println(userMapper.getUserByName("xlj"));
+        System.out.println(userMapper.getUserByNameAndAge("cmming", 24));
+    }
+
     public static void main( String[] args )
     {
-
-
 //        float cost = 150;
 //        for(int i = 1; i < 61; i++)
 //        {
-//            cost = cost * 1.039F + 10;
+//            cost = (cost + 10) * 1.039F;
 //            System.out.println(i + " " + cost);
 //        }
 
@@ -53,7 +88,6 @@ public class App
 //
 //        l.add(null);
 
-
 //        MyClassPathXmlApplicationContext myClassPathXmlApplicationContext = new MyClassPathXmlApplicationContext("my.xml");
 //        (Def)new Public()
 
@@ -66,14 +100,55 @@ public class App
 //
 //        userService.add();
 
-        System.setProperty("-Dspring.profiles.active", "dev");
+        System.setProperty("spring.profiles.active", "dev");
+//        -javaagent:/home/xielinjun/spring-instrument-5.0.6.RELEASE.jar
 
         ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("my.xml");
+
+
+        System.out.println();
+        System.out.println("tx------------------------------");
+        com.xlj.transaction.IUserService userServiceTx =
+                (com.xlj.transaction.IUserService)classPathXmlApplicationContext.getBean("userServiceTx");
+        try {
+            userServiceTx.save(new com.xlj.transaction.User(1988, "xielinjun", 1988, "man"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println();
+        System.out.println("mybatis tset oregin------------------------------");
+        App.mybatisTest();
+
+        System.out.println();
+        System.out.println("mybatis------------------------------");
+        IUserMapper userMapper = (IUserMapper)classPathXmlApplicationContext.getBean("IUserMapper");
+//        IUserMapper userMapper = (IUserMapper)classPathXmlApplicationContext.getBean("userMapper");
+        System.out.println(userMapper.getUserByName("template"));
+
+        System.out.println();
+        System.out.println("jdbc------------------------------");
+
+//        //spi
+        ServiceLoader<Driver> serviceLoader = ServiceLoader.load(Driver.class);
+//        DriverManager.getConnection()
+        for (Driver driver: serviceLoader) {
+            System.out.println("spi: java.sql.Driver " + driver);
+        }
+
+        IUserService userService =
+                (IUserService)classPathXmlApplicationContext.getBean("userServiceImplJDBCTemplate");
+        userService.saveUser(new com.xlj.jdbc.User(0, "cmming", 24, "women"));
+        userService.saveUser(new com.xlj.jdbc.User(0, "xlj", 31, "man"));
+
+        System.out.println(userService.getUsers());
 
         System.out.println();
         System.out.println("aop------------------------------");
 
-        ((TargetBean)classPathXmlApplicationContext.getBean("aopTargetBean")).testMethod("teststsetsetsetsetestset");
+//        new TargetBean().testMethod("test method params(new)");
+
+        ((TargetBean)classPathXmlApplicationContext.getBean("aopTargetBean")).testMethod("test method params");
 
         System.out.println();
         System.out.println("event------------------------------");

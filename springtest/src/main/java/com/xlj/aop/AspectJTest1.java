@@ -12,17 +12,17 @@ public class AspectJTest1 {
 
     }
 
-    @Before("test()")
-    public void beforTest()
-    {
-        System.out.println("------------------------befor1");
-    }
-
-    @After("test()")
-    public void afterTest()
-    {
-        System.out.println("------------------------after1");
-    }
+//    @Before("test()")
+//    public void beforTest()
+//    {
+//        System.out.println("------------------------befor1");
+//    }
+//
+//    @After("test()")
+//    public void afterTest()
+//    {
+//        System.out.println("------------------------after1");
+//    }
 
     @Around("test()")
     public Object aroundTest(ProceedingJoinPoint p)
@@ -34,7 +34,7 @@ public class AspectJTest1 {
         try {
             o = p.proceed();
 
-            System.out.println(p.getArgs().length + (p.getArgs()[0] + " -----------args"));
+//            System.out.println(p.getArgs().length + (p.getArgs()[0] + " -----------args"));
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

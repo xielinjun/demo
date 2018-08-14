@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context>
+    <Resource name="jndi/myDB"
+              auth = "Application"
+              type = "javax.sql.DataSource"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/springtest"
+              username="root"
+              password="20060619Csj"
+              maxActive="20"
+              maxIdle="10"
+              maxWait="10000">
+    </Resource>
+</context>

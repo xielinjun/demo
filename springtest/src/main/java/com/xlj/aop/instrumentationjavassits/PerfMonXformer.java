@@ -21,7 +21,7 @@ public class PerfMonXformer implements ClassFileTransformer {
                             ProtectionDomain protectionDomain,
                             byte[] classfileBuffer) throws IllegalClassFormatException {
 
-        System.out.println("trasnforming " + className);
+        System.out.println("-----------------------------trasnforming " + className);
 
         byte[] transformed = null;
 
@@ -37,12 +37,13 @@ public class PerfMonXformer implements ClassFileTransformer {
                 for (int i = 0; i < methods.length; i++) {
                     if(!methods[i].isEmpty())
                     {
-                        methods[i].insertBefore("long stime = System.nanoTime();");
+                        try {
 
-                        methods[i].insertAfter("System.out.println(\"leave method " +
-                                methods[i].getLongName() + " run time \");");
-
-                        System.out.println("leave method");
+                            methods[i].insertAfter("System.out.println(\"leave method " +
+                                    methods[i].getLongName() + " run time \");");
+                        }
+                        catch (Exception ex)
+                        {}
                     }
                 }
             }
